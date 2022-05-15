@@ -12,7 +12,8 @@ def setup_package():
       long_description_content_type='text/markdown',
       author='Asa Cooper Stickland',
       license='MIT License',
-      packages=setuptools.find_packages(
+      package_dir={"": "src"},
+      packages=setuptools.find_packages("src",
           exclude=['docs', 'tests', 'scripts', 'examples']),
       dependency_links=[
           'https://download.pytorch.org/whl/torch_stable.html',
