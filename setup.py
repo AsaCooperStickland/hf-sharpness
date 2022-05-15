@@ -31,7 +31,7 @@ def setup_package():
         'scikit-learn==0.24.2',
         'tensorboard==2.5.0',
         'matplotlib==3.4.2',
-        'torch==1.10.1+cu113',
+        'torch==1.11.0',
         'transformers==4.16.2'
       ],
   )
