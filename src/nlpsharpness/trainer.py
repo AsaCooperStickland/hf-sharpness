@@ -164,7 +164,7 @@ class BaseTrainer(Trainer):
         outputs = model(**inputs)
         if isinstance(self.args.fisher_penalty_weight, str):
             self.args.fisher_penalty_weight = float(self.args.fisher_penalty_weight)
-        if self.args.fisher_penalty_weight > 0.0:
+        if self.args.fisher_penalty_weight > 0.0 and model.training():
             logits = outputs.get("logits")
             outdx = Categorical(logits=logits).sample().unsqueeze(1).detach()
             f_loss_fct = nn.CrossEntropyLoss(ignore_index=-100)
@@ -191,7 +191,7 @@ class BaseTrainer(Trainer):
         else:
             # We don't use .loss here since the model may return tuples instead of ModelOutput.
             loss = outputs["loss"] if isinstance(outputs, dict) else outputs[0]
-        if self.args.fisher_penalty_weight > 0.0:
+        if self.args.fisher_penalty_weight > 0.0 and model.training():
             loss += (
                 self.args.fisher_penalty_weight
                 * gr_norm_sq
