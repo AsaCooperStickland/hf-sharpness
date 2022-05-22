@@ -1,7 +1,7 @@
 # hf-sharpness
 Simple implementation of flat minima methods (SAM, fisher penalty) for Huggingface trainer.
 
-Replace your `Trainer` class with BaseTrainer, and use our TrainingArguments:
+Replace your `Trainer` class with `BaseTrainer`, and use our `TrainingArguments`:
 
 ```
 from nlpsharpness import BaseTrainer, TrainingArguments
