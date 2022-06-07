@@ -13,8 +13,8 @@ from transformers.file_utils import is_torch_tpu_available
 from transformers.trainer_pt_utils import (
     get_parameter_names,
 )
-from pyhessian import hessian
 
+from nlpsharpness import HFHessian
 from nlpsharpness.sharpness import SAM
 
 
@@ -202,11 +202,11 @@ class BaseTrainer(Trainer):
 
         return (loss, outputs) if return_outputs else loss
 
-    def evaluate_sharpness(self, test_dataset):
+    def evaluate_sharpness(self, test_dataset=None):
         test_dataloader = self.get_test_dataloader(test_dataset)
         self.model.eval()
-        hessian_comp = hessian(
-            self.model, loss=nn.CrossEntropyLoss(), dataloader=test_dataloader, cuda=True
+        hessian_comp = HFHessian(
+            self.model, criterion=nn.CrossEntropyLoss(), dataloader=test_dataloader, cuda=True
         )
         top_eigenvalues, _ = hessian_comp.eigenvalues()
         trace = hessian_comp.trace()
