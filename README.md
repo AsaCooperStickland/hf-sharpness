@@ -14,3 +14,4 @@ training_args = TrainingArguments(
     fisher_penalty_weight=0.01,      # Use Fisher penalty with this weight
 )
 ```
+The `evaluate_hessian(dataset)` method of `BaseTrainer` returns the largest eigenvalue and trace of the Hessian for `dataset`.
